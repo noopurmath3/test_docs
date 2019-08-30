@@ -1,0 +1,110 @@
+////
+Attributes used: app-name, openshiftProductName, openshiftInstallationGuideLink and aboutModulePath
+Conditional Attributes used: openshift-enterprise, openshift-online, openshift-dedicated, arch-x86_64 and arch-i386
+////
+
+= AsciiDoctor CCS-2554 Test Document {openshiftProductName}
+
+[[conditionals]]
+== Conditionals
+
+// Multiline conditionals
+ifdef::openshift-enterprise+arch-x86_64[]
+Some content inside an ifdef conditional...
+endif::[]
+
+ifndef::openshift-enterprise[]
+Some content inside an ifndef conditional...
+endif::[]
+
+// Nested conditionals
+ifdef::openshift-enterprise[]
+
+Some content that applies to all architectures for {openshiftProductName}.
+
+ifdef::arch-x86_64[]
+Some content that only applies to 64-bit architectures for {openshiftProductName}.
+endif::arch-x86_64[]
+
+ifdef::arch-i386[]
+Some content that only applies to 32-bit architectures for {openshiftProductName}.
+endif::arch-i386[]
+
+ifndef::arch-x86_64,arch-i386[]
+Some content that only applies to architectures other than 32-bit or 64-bit (ie powerpc or arm).
+endif::[]
+
+endif::openshift-enterprise[]
+
+// Single line conditional
+ifdef::openshift-enterprise,openshift-dedicated[A single line conditional]
+
+// Single line conditional with an attribute
+ifndef::openshift-online[A single line conditional for the {openshiftProductName} product]
+
+// eval conditionals
+ifeval::[2 > 1]
+Some ifeval conditional content that should always be shown, since the condition is always true.
+endif::[]
+
+ifeval::["{backend}" == "html5"]
+Some ifeval conditional content that should always be shown when rendering HTML.
+endif::[]
+
+ifeval::[{sectnumlevels} == 3]
+Some conditional after sectnumlevels == 3 resolves
+endif::[]
+
+ifeval::["{docname}{outfilesuffix}" == "tdd.html.j2"]
+docname outfilesuffix - content 
+endif::[]
+
+ifeval::["This {openshiftProductName} attr should match" == "This OpenShift Container Platform attr should match"]
+The attribute did match
+endif::[]
+
+[[attributes]]
+== Attributes
+
+// Should be transformed into something like the following HTML:
+// A link to the <a href="{{ openshiftInstallationGuideLink }}/installing-via-rpm">{{ openshiftProductName }} Installation Guide</a>.
+A link to the link:{openshiftInstallationGuideLink}/installing-via-rpm[{openshiftProductName} Installation Guide].
+
+// Should be transformed into something like the following HTML:
+// A cross reference to futher information about <a href="{{ aboutModulePath }}#about">{{ openshiftProductName }}</a>.
+A cross reference to futher information about xref:{aboutModulePath}#about[{openshiftProductName}].
+
+Some sample code that contains an attribute that should be replaced:
+[subs=attributes+]
+----
+{app-name}
+----
+
+Some sample code that contains an attribute that shouldn't be replaced:
+[subs=-attributes]
+----
+{app-name}
+----
+
+// Attribute in a title/heading
+=== About {openshiftProductName}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet risus scelerisque nunc finibus lacinia. Pellentesque et auctor velit, nec imperdiet sapien. Aenean diam mi, pretium eu mauris a, aliquet ullamcorper dui. Etiam eget faucibus orci. Duis nec tellus sit amet magna varius placerat. Integer fermentum lobortis felis quis fermentum. Aliquam dignissim erat in eleifend ullamcorper.
+
+.Description List
+CPU:: The brain of the computer.
+Hard drive:: Permanent storage for operating system and/or user files.
+RAM:: Temporarily stores information the CPU uses during operation.
+Keyboard:: Used to enter text or control items on the screen.
+Mouse:: Used to point to and select items on your computer screen.
+Monitor:: Displays information in visual form using text and graphics {openshiftProductName}.
+term::
++
+[subs=attributes+]
+....
+literal, line 1 {openshiftProductName}
+literal, line 2
+....
+
+// Using a built in AsciiDoc attribute
+Last Updated: {doctime}

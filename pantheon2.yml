@@ -1,0 +1,22 @@
+# Config file for Pantheon v2 uploader
+## server: Pantheon server URL
+## repository: a unique name, which is visible in the user facing URL
+## followlinks: true/false
+## If you set the followLinks to true then all the asciidoc files resolved via symlinks will be included and uploaded.
+## If you set the followLinks to false then all the asciidoc files resolved via symlinks will be ignored and not be uploaded.
+
+server: http://pantheon2-pantheon.int.us-east.aws.preprod.paas.redhat.com
+repository: nmath
+followlinks: true
+
+modules:
+ - anchor.internal.adoc
+ - bullets.module.adoc
+ - include.module.adoc
+ - section.title.adoc
+ - test2.internal.adoc
+ - test.something.adoc
+ - blockquote.title.adoc
+ - code.module.adoc
+ - test1.module.adoc
+ - test3.__.adoc  
